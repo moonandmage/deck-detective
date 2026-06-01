@@ -61,6 +61,7 @@ html,body{background:#b89967;height:auto;overflow:hidden;}
 .hpts{color:#3a1a00;font-family:'Cinzel',serif;font-size:14px;font-weight:700;}
 .watch{font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.08em;color:#1a0a00;text-align:center;margin-top:1.5rem;font-weight:700;background:rgba(184,153,103,0.4);padding:8px;border-radius:4px;}
 .storage-note{font-size:15px;color:#1a0a00;text-align:center;margin-top:0.75rem;line-height:1.6;font-style:italic;font-weight:500;}
+.reset-btn{font-family:"Cinzel",serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;color:#7a5a18;background:transparent;border:1px solid #7a5a18;border-radius:4px;padding:8px 16px;cursor:pointer;margin-top:0.75rem;display:inline-block;}
 .particle{position:absolute;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;}
 
 /* SHARE */
@@ -162,6 +163,7 @@ html,body{background:#b89967;height:auto;overflow:hidden;}
   <p class="storage-note">*Your stars are saved to this device and browser. Always use the same device and browser to keep your points. Switching devices or browsers will start your count fresh.</p>
 </div>
 </div>
+  <div style="text-align:center;margin-top:0.5rem;"><button class="reset-btn" onclick="resetToday()">Reset Today</button></div>
 
 <script>
 var TASKS = [
@@ -348,6 +350,16 @@ function render(){
     '<span class="day-label">✦ Today\'s Findings</span>'+
     '<span class="day-pts" id="day-pts">0 stars</span></div>'+
     rows+'<button class="submit-btn" onclick="logStars()">▸ Log My Stars</button></div>';
+}
+
+function resetToday(){
+  if(!confirm('Reset today so you can re-log? This will clear your stars for today.')) return;
+  var d=getData();
+  delete d[getTodayKey()];
+  saveData(d);
+  refreshUI();
+  renderHistory();
+  render();
 }
 
 document.getElementById('today-date').textContent=fmtDate(Date.now());
