@@ -5,16 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deck Detective — The Tarot Circle June Challenge</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:#b89967;height:auto;overflow:hidden;}
-.wrap{max-width:600px;margin:0 auto;font-family:'Cormorant Garamond',serif;height:auto;}
+.wrap{max-width:600px;margin:0 auto;font-family:'Cormorant Garamond',serif;}
 .map-bg{background-color:#c9aa7a;background-image:radial-gradient(ellipse at 20% 20%,rgba(150,110,50,0.4) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(130,90,30,0.35) 0%,transparent 50%);border:8px solid #7a5a18;outline:3px solid #b89967;outline-offset:-12px;position:relative;overflow:hidden;padding:1.5rem 1.25rem 2rem;}
 .map-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 60%,rgba(80,45,5,0.3) 100%);pointer-events:none;}
 .map-lines{position:absolute;inset:0;pointer-events:none;opacity:0.12;}
 .stars{position:absolute;inset:0;pointer-events:none;}
-
-/* HEADER — fully centered, all dark text */
 .map-header{position:relative;text-align:center;margin-bottom:1rem;width:100%;}
 .map-header::before{content:'';display:block;height:2px;background:linear-gradient(to right,transparent,#7a5a18,transparent);margin-bottom:0.6rem;}
 .map-header::after{content:'';display:block;height:2px;background:linear-gradient(to right,transparent,#7a5a18,transparent);margin-top:0.6rem;}
@@ -22,10 +21,7 @@ html,body{background:#b89967;height:auto;overflow:hidden;}
 .map-title{font-family:'Cinzel',serif;font-size:36px;font-weight:700;color:#1a0a00;line-height:1.1;display:block;text-align:center;}
 .map-sub{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:#2a1500;margin-top:4px;display:block;text-align:center;}
 .map-date{font-size:16px;color:#2a1500;font-style:italic;margin-top:4px;display:block;text-align:center;font-weight:500;}
-
 .compass{position:absolute;top:12px;right:16px;width:64px;height:64px;opacity:0.8;}
-
-/* COUNTER CARD */
 .total-scroll{position:relative;background:#1e1000;border:3px solid #b89967;border-radius:6px;padding:1.25rem 1.5rem 1.5rem;text-align:center;margin:0.5rem 0 1rem;overflow:hidden;}
 .total-scroll::before{content:'';position:absolute;inset:6px;border:1px solid rgba(184,153,103,0.3);border-radius:3px;pointer-events:none;}
 .scroll-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(184,153,103,0.15) 0%,transparent 70%);pointer-events:none;}
@@ -40,8 +36,6 @@ html,body{background:#b89967;height:auto;overflow:hidden;}
 .dot.missed{background:transparent;}
 .dot.future{background:transparent;border-color:rgba(184,153,103,0.3);}
 .dot.today{background:transparent;border-color:#b89967;box-shadow:0 0 6px rgba(184,153,103,0.6);}
-
-/* TASK CARD */
 .task-parch{position:relative;background:#d4b87a;border:2px solid #7a5a18;border-radius:4px;padding:1.25rem;margin-bottom:1rem;}
 .task-parch::after{content:'';position:absolute;top:-6px;left:10%;right:10%;height:6px;background:linear-gradient(to bottom,transparent,#c4a860);clip-path:polygon(0% 100%,2% 0%,4% 80%,6% 10%,8% 70%,10% 0%,12% 85%,14% 5%,16% 90%,18% 0%,20% 75%,22% 15%,24% 95%,26% 0%,28% 80%,30% 20%,32% 100%,34% 0%,36% 85%,38% 10%,40% 90%,42% 5%,44% 75%,46% 20%,48% 95%,50% 0%,52% 85%,54% 15%,56% 90%,58% 0%,60% 80%,62% 25%,64% 100%,66% 5%,68% 85%,70% 0%,72% 75%,74% 20%,76% 95%,78% 5%,80% 80%,82% 0%,84% 90%,86% 15%,88% 85%,90% 0%,92% 80%,94% 10%,96% 90%,98% 5%,100% 100%);}
 .day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px dashed rgba(80,50,10,0.6);}
@@ -55,26 +49,43 @@ html,body{background:#b89967;height:auto;overflow:hidden;}
 .task.done .task-text{color:#7a6030;text-decoration:line-through;}
 .submit-btn{display:block;width:100%;margin-top:1rem;padding:14px;background:#1a0a00;color:#b89967;border:2px solid #b89967;border-radius:4px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.2em;font-weight:700;cursor:pointer;text-transform:uppercase;}
 .submit-btn:hover{background:#2e1a08;}
-
-/* SUCCESS */
 .success-box{background:#d4b87a;border:2px solid #7a5a18;border-radius:4px;padding:2rem;text-align:center;margin-bottom:1rem;}
 .success-icon{font-size:28px;color:#3a1a00;margin-bottom:0.5rem;}
 .success-box p{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;color:#1a0a00;font-weight:700;}
 .success-pts{font-family:'Cinzel',serif;font-size:36px;font-weight:700;color:#3a1a00;display:block;margin:0.3rem 0;}
 .success-sub{font-size:17px;color:#2a1000;font-style:italic;}
-
-/* HISTORY */
 .history{margin-top:1.25rem;}
 .history-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:#2a1000;margin-bottom:0.6rem;font-weight:700;}
 .hrow{display:flex;justify-content:space-between;font-size:16px;padding:6px 0;border-bottom:1px dashed rgba(80,50,10,0.3);color:#1a0a00;font-weight:500;}
 .hrow:last-child{border-bottom:none;}
 .hpts{color:#3a1a00;font-family:'Cinzel',serif;font-size:14px;font-weight:700;}
-
-/* FOOTER */
 .watch{font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.08em;color:#1a0a00;text-align:center;margin-top:1.5rem;font-weight:700;background:rgba(184,153,103,0.4);padding:8px;border-radius:4px;}
 .storage-note{font-size:15px;color:#1a0a00;text-align:center;margin-top:0.75rem;line-height:1.6;font-style:italic;font-weight:500;}
-
 .particle{position:absolute;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;}
+
+/* SHARE */
+.share-wrap{margin-top:1.5rem;text-align:center;}
+.share-btn{font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;color:#1a0a00;background:#b89967;border:none;border-radius:8px;padding:16px 28px;cursor:pointer;display:block;width:100%;box-shadow:0 4px 0 #7a5a18;transition:all 0.1s;}
+.share-btn:hover{background:#c9aa78;}
+.share-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #7a5a18;}
+.share-card-wrap{margin-top:1rem;display:none;}
+.share-card{background:#1a0a00;border:3px solid #b89967;border-radius:8px;padding:2rem 1.5rem;text-align:center;position:relative;margin-bottom:1rem;}
+.share-card::before{content:'';position:absolute;inset:7px;border:1px solid rgba(184,153,103,0.25);border-radius:5px;pointer-events:none;}
+.sc-eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:#b89967;opacity:0.8;margin-bottom:0.4rem;}
+.sc-title{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:#e8d5a3;margin-bottom:0.75rem;}
+.sc-divider{height:1px;background:rgba(184,153,103,0.2);margin:0.75rem 0;}
+.sc-num{font-family:'Cinzel',serif;font-size:72px;font-weight:700;color:#b89967;line-height:1;text-shadow:0 0 20px rgba(184,153,103,0.5);}
+.sc-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#b89967;opacity:0.7;margin-top:0.25rem;}
+.sc-date{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#8a7050;margin-top:0.5rem;}
+.sc-footer{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#b89967;opacity:0.5;margin-top:1rem;}
+.action-row{display:flex;gap:10px;margin-bottom:0.75rem;}
+.copy-btn{font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#1a0a00;background:#b89967;border:none;border-radius:8px;padding:14px;cursor:pointer;flex:1;box-shadow:0 4px 0 #7a5a18;transition:all 0.1s;}
+.copy-btn:hover{background:#c9aa78;}
+.copy-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #7a5a18;}
+.group-btn{font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#b89967;background:#1a0a00;border:2px solid #b89967;border-radius:8px;padding:14px;cursor:pointer;flex:1;text-decoration:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 #000;transition:all 0.1s;}
+.group-btn:hover{background:#2e1a08;}
+.group-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #000;}
+.share-hint{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#2a1000;text-align:center;font-weight:500;}
 </style>
 </head>
 <body>
@@ -143,6 +154,27 @@ html,body{background:#b89967;height:auto;overflow:hidden;}
     <div id="history-list"></div>
   </div>
 
+  <div class="share-wrap">
+    <button class="share-btn" onclick="toggleShareCard()">✦ Share My Score!</button>
+    <div class="share-card-wrap" id="share-card-wrap">
+      <div class="share-card" id="share-card">
+        <div class="sc-eyebrow">The Tarot Circle</div>
+        <div class="sc-title">Deck Detective — June Challenge</div>
+        <div class="sc-divider"></div>
+        <div class="sc-num" id="share-num">0</div>
+        <div class="sc-label">stars earned</div>
+        <div class="sc-date" id="share-date"></div>
+        <div class="sc-divider"></div>
+        <div class="sc-footer">✦ The Tarot Circle ✦</div>
+      </div>
+      <div class="action-row">
+        <button class="copy-btn" id="copy-btn" onclick="copyCard()">▸ Copy Image</button>
+        <a class="group-btn" href="https://www.skool.com/tarot-circle?c=d4c7f67971ff45bda4070e625b5ef386&s=newest&fl=" target="_blank">▸ Post in Group!</a>
+      </div>
+      <p class="share-hint">Screenshot the card and paste it in your post!</p>
+    </div>
+  </div>
+
   <p class="watch">⚠ All activity is recorded and reviewed by our team.</p>
   <p class="storage-note">*Your stars are saved to this device and browser. Always use the same device and browser to keep your points. Switching devices or browsers will start your count fresh.</p>
 </div>
@@ -162,50 +194,28 @@ var STORE_KEY = 'dd_june2026_v3';
 var checked = [];
 
 function getData(){
-  try{ return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); }
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }
   catch(e){ return {}; }
 }
-function saveData(d){ localStorage.setItem(STORE_KEY, JSON.stringify(d)); }
-
-function getTodayKey(){
-  var n = new Date();
-  return n.getFullYear() + '-' + n.getMonth() + '-' + n.getDate();
-}
-function getJuneDayKey(day){ return '2026-5-' + day; }
-
+function saveData(d){ localStorage.setItem(STORE_KEY,JSON.stringify(d)); }
+function getTodayKey(){ var n=new Date(); return n.getFullYear()+'-'+n.getMonth()+'-'+n.getDate(); }
+function getJuneDayKey(day){ return '2026-5-'+day; }
 function grandTotal(){
-  var d = getData();
-  var total = 0;
-  var keys = Object.keys(d);
-  for(var i = 0; i < keys.length; i++){
-    var pts = parseInt(d[keys[i]].points, 10);
-    if(!isNaN(pts)) total += pts;
-  }
+  var d=getData(); var total=0; var keys=Object.keys(d);
+  for(var i=0;i<keys.length;i++){ var pts=parseInt(d[keys[i]].points,10); if(!isNaN(pts)) total+=pts; }
   return total;
 }
+function fmtDate(ts){ return new Date(ts).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}); }
+function countChecked(){ var n=0; for(var i=0;i<checked.length;i++){ if(checked[i]===true) n++; } return n; }
 
-function fmtDate(ts){
-  return new Date(ts).toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
-}
-function countChecked(){
-  var n = 0;
-  for(var i = 0; i < checked.length; i++){ if(checked[i] === true) n++; }
-  return n;
-}
-
-// Stars
-var canvas = document.getElementById('starCanvas');
-canvas.width = 600; canvas.height = 900;
-var ctx = canvas.getContext('2d');
-var stars = [];
-for(var i = 0; i < 80; i++){
-  stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.5+0.3,phase:Math.random()*Math.PI*2,da:(Math.random()-0.5)*0.025});
-}
+var canvas=document.getElementById('starCanvas');
+canvas.width=600; canvas.height=900;
+var ctx=canvas.getContext('2d');
+var stars=[];
+for(var i=0;i<80;i++) stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.5+0.3,phase:Math.random()*Math.PI*2,da:(Math.random()-0.5)*0.025});
 function drawStars(){
-  var w = canvas.offsetWidth || 600;
-  var h = canvas.offsetHeight || 900;
-  if(canvas.width !== w) canvas.width = w;
-  if(canvas.height !== h) canvas.height = h;
+  var w=canvas.offsetWidth||600; var h=canvas.offsetHeight||900;
+  if(canvas.width!==w) canvas.width=w; if(canvas.height!==h) canvas.height=h;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   for(var i=0;i<stars.length;i++){
     var s=stars[i]; s.phase+=s.da;
@@ -223,21 +233,20 @@ function starSVG(filled){
 }
 
 function renderDots(){
-  var d = getData();
-  var now = new Date();
-  var isJune = (now.getFullYear()===2026 && now.getMonth()===5);
-  var todayDay = isJune ? now.getDate() : 0;
-  var ranges = [[1,10],[11,20],[21,30]];
+  var d=getData(); var now=new Date();
+  var isJune=(now.getFullYear()===2026&&now.getMonth()===5);
+  var todayDay=isJune?now.getDate():0;
+  var ranges=[[1,10],[11,20],[21,30]];
   for(var ri=0;ri<ranges.length;ri++){
     var html='';
     for(var day=ranges[ri][0];day<=ranges[ri][1];day++){
       var k=getJuneDayKey(day);
       var entry=d[k];
-      var logged=!!(entry && parseInt(entry.points,10)>0);
+      var logged=!!(entry&&parseInt(entry.points,10)>0);
       var cls='dot ';
       if(logged) cls+='logged';
-      else if(isJune && day===todayDay) cls+='today';
-      else if(isJune && day<todayDay) cls+='missed';
+      else if(isJune&&day===todayDay) cls+='today';
+      else if(isJune&&day<todayDay) cls+='missed';
       else cls+='future';
       html+='<div class="'+cls+'" title="June '+day+'"></div>';
     }
@@ -245,10 +254,7 @@ function renderDots(){
   }
 }
 
-function refreshUI(){
-  document.getElementById('grand-total').textContent = grandTotal();
-  renderDots();
-}
+function refreshUI(){ document.getElementById('grand-total').textContent=grandTotal(); renderDots(); }
 
 function explode(wrapEl){
   for(var i=0;i<24;i++){
@@ -258,7 +264,7 @@ function explode(wrapEl){
       var angle=(idx/24)*360+Math.random()*20;
       var dist=35+Math.random()*45;
       var rad=angle*Math.PI/180;
-      var tx=Math.cos(rad)*dist, ty=Math.sin(rad)*dist;
+      var tx=Math.cos(rad)*dist,ty=Math.sin(rad)*dist;
       var color=GOLD[Math.floor(Math.random()*GOLD.length)];
       var isStreak=Math.random()>0.5;
       p.style.cssText='width:'+(isStreak?2:size)+'px;height:'+(isStreak?9:size)+'px;background:'+color+';border-radius:'+(isStreak?'2px':'50%')+';opacity:1;transition:none;box-shadow:0 0 4px '+color+';';
@@ -289,22 +295,44 @@ function logStars(){
   if(pts===0){alert('Mark at least one finding first!');return;}
   var d=getData();
   d[getTodayKey()]={points:pts,timestamp:Date.now()};
-  saveData(d);
-  refreshUI();
-  renderHistory();
+  saveData(d); refreshUI(); renderHistory();
   var total=grandTotal();
   document.getElementById('main-content').innerHTML=
-    '<div class="success-box">'+
-    '<div class="success-icon">✦</div>'+
-    '<p>Stars Logged!</p>'+
+    '<div class="success-box"><div class="success-icon">✦</div><p>Stars Logged!</p>'+
     '<span class="success-pts">+'+pts+' star'+(pts!==1?'s':'')+'</span>'+
-    '<span class="success-sub">'+total+' total stars this June</span>'+
-    '</div>';
+    '<span class="success-sub">'+total+' total stars this June</span></div>';
+}
+
+function toggleShareCard(){
+  var w=document.getElementById('share-card-wrap');
+  var showing=w.style.display==='block';
+  if(!showing){
+    document.getElementById('share-num').textContent=grandTotal();
+    document.getElementById('share-date').textContent=fmtDate(Date.now());
+  }
+  w.style.display=showing?'none':'block';
+}
+
+function copyCard(){
+  var btn=document.getElementById('copy-btn');
+  btn.textContent='Working...';
+  html2canvas(document.getElementById('share-card'),{backgroundColor:'#1a0a00',scale:2}).then(function(canvas){
+    canvas.toBlob(function(blob){
+      try{
+        navigator.clipboard.write([new ClipboardItem({'image/png':blob})]).then(function(){
+          btn.textContent='✓ Copied!';
+          setTimeout(function(){btn.textContent='▸ Copy Image';},3000);
+        });
+      }catch(e){
+        btn.textContent='▸ Copy Image';
+        alert('Screenshot the card and paste it in the group!');
+      }
+    });
+  });
 }
 
 function renderHistory(){
-  var d=getData();
-  var keys=Object.keys(d).sort();
+  var d=getData(); var keys=Object.keys(d).sort();
   var hs=document.getElementById('history-section');
   if(!keys.length){hs.style.display='none';return;}
   hs.style.display='block';
@@ -318,10 +346,11 @@ function renderHistory(){
 
 function render(){
   var mc=document.getElementById('main-content');
-  var d=getData();
-  var tk=getTodayKey();
+  var d=getData(); var tk=getTodayKey();
   if(d[tk]){
-    mc.innerHTML='<div class="success-box"><div class="success-icon">✦</div><p>Field notes logged</p><span class="success-pts">'+d[tk].points+' stars today</span><span class="success-sub">Return tomorrow, detective.</span></div>';
+    mc.innerHTML='<div class="success-box"><div class="success-icon">✦</div><p>Field notes logged</p>'+
+      '<span class="success-pts">'+d[tk].points+' stars today</span>'+
+      '<span class="success-sub">Return tomorrow, detective.</span></div>';
     return;
   }
   checked=[];
@@ -332,19 +361,14 @@ function render(){
       '<div class="star-wrap" id="wrap-'+i+'">'+starSVG(false)+'</div>'+
       '<span class="task-text">'+TASKS[i]+'</span></div>';
   }
-  mc.innerHTML='<div class="task-parch">'+
-    '<div class="day-header">'+
+  mc.innerHTML='<div class="task-parch"><div class="day-header">'+
     '<span class="day-label">✦ Today\'s Findings</span>'+
-    '<span class="day-pts" id="day-pts">0 stars</span>'+
-    '</div>'+rows+
-    '<button class="submit-btn" onclick="logStars()">▸ Log My Stars</button>'+
-    '</div>';
+    '<span class="day-pts" id="day-pts">0 stars</span></div>'+
+    rows+'<button class="submit-btn" onclick="logStars()">▸ Log My Stars</button></div>';
 }
 
 document.getElementById('today-date').textContent=fmtDate(Date.now());
-refreshUI();
-render();
-renderHistory();
+refreshUI(); render(); renderHistory();
 </script>
 </body>
 </html>
