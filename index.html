@@ -183,7 +183,18 @@ function getData(){
   catch(e){ return {}; }
 }
 function saveData(d){ localStorage.setItem(STORE_KEY,JSON.stringify(d)); }
-function getTodayKey(){ var n=new Date(); return n.getFullYear()+'-'+n.getMonth()+'-'+n.getDate(); }
+function getTodayKey(){
+  // Day runs 10am EST to 10am EST (UTC-5 = 15:00 UTC, UTC-4 DST = 14:00 UTC)
+  // Use 14:00 UTC (10am EDT) as the cutoff to be generous
+  var now = new Date();
+  var utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  var est = new Date(utc - (4 * 3600000)); // EDT offset
+  // If before 10am EST, use previous day's key
+  if(est.getHours() < 8){
+    est.setDate(est.getDate() - 1);
+  }
+  return est.getFullYear()+'-'+est.getMonth()+'-'+est.getDate();
+}
 function getJuneDayKey(day){ return '2026-5-'+day; }
 function grandTotal(){
   var d=getData(); var total=0; var keys=Object.keys(d);
